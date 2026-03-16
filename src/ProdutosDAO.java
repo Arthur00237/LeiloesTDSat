@@ -23,7 +23,7 @@ public class ProdutosDAO {
     ArrayList<ProdutosDTO> listagem = new ArrayList<>();
     
     public void cadastrarProduto (ProdutosDTO produto){
-        
+         
         
         conn = new conectaDAO().connectDB();
         
@@ -64,5 +64,23 @@ public class ProdutosDAO {
     }
         return lista;
     }
+    
+    public int venderProduto(ProdutosDTO produto){
+        int status;
+        
+        try {
+            prep = conn.prepareStatement("UPDATE produtos SET status = 'Vendido' WHERE id = ?");
+            prep.setInt(1, produto.getId());
+            status = prep.executeUpdate();
+            return status;
+        } catch (SQLException ex) {
+            System.out.println(ex.getErrorCode());
+            return ex.getErrorCode();
+        }
+                
+        
+    }
+            
+    
 }
 
