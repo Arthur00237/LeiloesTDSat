@@ -65,14 +65,15 @@ public class ProdutosDAO {
         return lista;
     }
     
-    public int venderProduto(ProdutosDTO produto){
-        int status;
+    public int venderProduto(int id){
+        
+        conn = new conectaDAO().connectDB();
         
         try {
             prep = conn.prepareStatement("UPDATE produtos SET status = 'Vendido' WHERE id = ?");
-            prep.setInt(1, produto.getId());
-            status = prep.executeUpdate();
-            return status;
+            prep.setInt(1, id);
+            return prep.executeUpdate();
+            
         } catch (SQLException ex) {
             System.out.println(ex.getErrorCode());
             return ex.getErrorCode();
